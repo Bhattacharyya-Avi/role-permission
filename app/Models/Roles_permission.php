@@ -19,4 +19,6 @@ class Roles_permission extends Model
     {
         return $this->belongsTo(Permission::class);
     }
+
+    
 }

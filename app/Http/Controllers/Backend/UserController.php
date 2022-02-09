@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     public function userList()
     {
-        $users = Roles_user::with('user','role')->get();
+        $users = User::with('role')->get();
         // dd($users);
         return view('admin.pages.user.list',compact('users'));
     }
@@ -26,17 +26,12 @@ class UserController extends Controller
     public function userpost(Request $request)
     {
         // dd($request->all());
-        $user = User::create([
+        User::create([
             'name'=>$request->name,
             'email'=>$request->email,
             'password'=>bcrypt($request->password),
+            'role_id'=>$request->role, 
         ]);
-
-        Roles_user::create([
-            'role_id'=>$request->role,
-            'user_id'=>$user->id
-        ]);
-
         return redirect()->back();
     }
 }

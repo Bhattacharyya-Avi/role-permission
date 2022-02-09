@@ -34,6 +34,7 @@ class PermissionController extends Controller
 
     public function assignPermissionPost(Request $request)
     {
+        // dd($request->all());
         foreach ($request->permissions as $key => $permission) {
             Roles_Permission::create([
                 'role_id' => $request->role,
@@ -41,5 +42,24 @@ class PermissionController extends Controller
              ]);
         }
         return redirect()->back();
+    }
+
+    public function editPermission($role_id)
+    {
+        // dd($role_id);
+        $role = Role::with('assignpermission')->find($role_id);
+        $permission = Permission::all();
+        if ($role) {
+            return view('admin.pages.assign_permission.update',compact('role','permission','role_id'));
+        }
+    }
+
+    public function updatePermission(Request $request, $role_id)
+    {
+        // dd($role_id,$request->all());
+        $role = Role::with('permissions')->find($role_id);
+        // dd($role);
+        $role->permissions()->sync($request->permissions);
+        return redirect()->route('assign.permission.list');
     }
 }

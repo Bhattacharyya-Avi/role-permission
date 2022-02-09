@@ -7,6 +7,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 
@@ -23,6 +24,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id',
     ];
 
     /**
@@ -44,8 +46,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function roleusers()
+    public function role(): BelongsTo
     {
-        return $this->belongsToMany(Roles_user::class,'user_id','id');
+        return $this->belongsTo(Role::class);
     }
+
+    public function hasPermission($permission): bool
+    {
+        return $this->role->permissions()->where('slug',$permission)->first() ? true : false;
+    }
+
 }
