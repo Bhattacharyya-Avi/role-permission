@@ -30,10 +30,8 @@
                 </td> --}}
                 <td>
                     <a class="btn btn-success" href="">View</a>
-                    @role('delete.product')
                     <a class="btn btn-danger" href="">Delete</a>
                     <a class="btn btn-warning" href="">Edit</a>
-                    @endrole
                 </td>
             </tr>
         @endforeach

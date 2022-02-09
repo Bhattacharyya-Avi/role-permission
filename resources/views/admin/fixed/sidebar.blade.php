@@ -35,6 +35,24 @@
                 </a>
             </li>
 
+            @if(hasAnyPermission('create.product'))
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('create.product')}}">
+                        <span data-feather="file"></span>
+                        create product
+                    </a>
+                </li>
+            @endif
+
+            @if (hasAnyPermission('view.product'))
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('view.product')}}">
+                        <span data-feather="file"></span>
+                        view product
+                    </a>
+                </li>
+            @endif
+
         </ul>
 
     </div>

@@ -18,8 +18,8 @@
         @foreach($users as $key=>$user)
             <tr>
                 <th scope="row">{{$key+1}}</th>
-                <td>{{$user->user->name}}</td>
-                <td>{{$user->user->email}}</td>
+                <td>{{$user->name}}</td>
+                <td>{{$user->email}}</td>
                 <td>{{$user->role->name}}</td>
                 <td>
                     <a class="btn btn-success" href="">View</a>
