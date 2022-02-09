@@ -22,7 +22,10 @@
     <div class="form-group">
         <label for="exampleFormControlSelect2">Select Permissions</label>
         <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="select-all">
+                <label class="form-check-label" for="select-all">Select all</label>
             @foreach ($permissions as $permission)
+                
                 <ul class="list-unstyled">
                     <li>
                         <input name="permissions[]" value="{{$permission->id}}" class="form-check-input" type="checkbox"
@@ -36,4 +39,20 @@
     <button type="submit" class="btn btn-success">Submit</button>
 </form>
 
+
+
 @endsection
+
+@push('js')
+<script>
+    $(document).ready(function() {
+        $('#select-all').click(function() {
+            var checked = this.checked;
+            $('input[type="checkbox"]').each(function() {
+                this.checked = checked;
+            });
+        })
+    });
+</script>
+
+@endpush
