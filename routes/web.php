@@ -8,16 +8,18 @@ use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Frontend\ProductController;
 
-//login 
+//login
 Route::get('/',[BackendLogin::class,'login'])->name('login');
 Route::post('/login/post',[BackendLogin::class,'loginpost'])->name('login.post');
+Route::get('/registration',[BackendLogin::class,'registration'])->name('registration');
+Route::post('/registration/post',[BackendLogin::class,'registrationPost'])->name('registration.post');
 Route::get('/logout',[BackendLogin::class,'logout'])->name('logout');
 Route::group(['middleware'=>'auth'],function(){
     //role
     Route::get('/role/list',[RoleController::class,'roleList'])->name('admin.role.list');
     //permission
     Route::get('/permission/list',[PermissionController::class, 'permissionList'])->name('permission.list');
-    //assign permission 
+    //assign permission
     Route::get('assign/permission/form',[PermissionController::class,'assignPermission'])->name('assign.permission.form');
     Route::post('assign/permission/post',[PermissionController::class,'assignPermissionPost'])->name('assign.permission.post');
     Route::get('/assign/permission/list',[PermissionController::class,'assignPermissionList'])->name('assign.permission.list');
