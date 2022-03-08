@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Event\LoginHistory;
 use App\Jobs\SendMailJob;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -37,6 +38,8 @@ class LoginController extends Controller
         // dd($request->all());
         $userInfo=$request->except('_token');
         if(Auth::attempt($userInfo)){
+            $user = auth()->user();
+            event(new LoginHistory($user));
             return redirect()->route('admin.role.list');
         }
         return redirect()->back();
