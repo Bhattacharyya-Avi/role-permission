@@ -57,7 +57,7 @@ class PermissionInit extends Command
             Permission::updateOrCreate([
                 //'module_id' =>$module_id, // not needed because don't have module table.
                 'name' => $permission['name'],
-                'slug' => Str::slug($permission['name']),
+                'slug' => $permission['name'],
             ]);
         }
     }

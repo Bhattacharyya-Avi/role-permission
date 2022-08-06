@@ -21,8 +21,8 @@
                 <td>{{$Permission->name}}</td>
                 <td >
                     @foreach ($Permission->assignpermission as $item)
-                        <span style="background-color: cornflowerblue; color:black">
-                            {{$item->permission->name}}
+                        <span style="background-color: rgb(233, 240, 253); color:black">
+                            {{$item->permission->name}},
                         </span>
                     @endforeach
                 </td>
