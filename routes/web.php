@@ -15,23 +15,38 @@ Route::get('/registration',[BackendLogin::class,'registration'])->name('registra
 Route::post('/registration/post',[BackendLogin::class,'registrationPost'])->name('registration.post');
 Route::get('/logout',[BackendLogin::class,'logout'])->name('logout');
 Route::group(['middleware'=>'auth'],function(){
-    //role
-    Route::get('/role/list',[RoleController::class,'roleList'])->name('admin.role.list');
-    //permission
-    Route::get('/permission/list',[PermissionController::class, 'permissionList'])->name('permission.list');
-    //assign permission
-    Route::get('assign/permission/form',[PermissionController::class,'assignPermission'])->name('assign.permission.form');
-    Route::post('assign/permission/post',[PermissionController::class,'assignPermissionPost'])->name('assign.permission.post');
-    Route::get('/assign/permission/list',[PermissionController::class,'assignPermissionList'])->name('assign.permission.list');
-    Route::get('/edit/permission/{role_id}',[PermissionController::class,'editPermission'])->name('edit.assigned.permission');
-    Route::post('/update/permission/{role_id}',[PermissionController::class,'updatePermission'])->name('update.assigned.permission');
-    //add user from admin panel
-    Route::get('/user/list',[UserController::class,'userList'])->name('user.list');
-    Route::get('/add/user',[UserController::class,'adduser'])->name('user.add');
-    Route::post('/user/post',[UserController::class,'userpost'])->name('user.post');
 
+    //role
+    Route::group(['prefix'=>'role'],function(){
+        Route::get('/list',[RoleController::class,'roleList'])->name('admin.role.list');
+    });
+
+    //permission
+    Route::group(['prefix'=>'permission'],function(){
+        Route::get('/list',[PermissionController::class, 'permissionList'])->name('permission.list');
+    });
+
+    //assign permission
+    Route::group(['prefix'=>'assign'],function(){
+        Route::get('/permission/form',[PermissionController::class,'assignPermission'])->name('assign.permission.form');
+        Route::post('/permission/post',[PermissionController::class,'assignPermissionPost'])->name('assign.permission.post');
+        Route::get('/permission/list',[PermissionController::class,'assignPermissionList'])->name('assign.permission.list');
+        Route::get('/edit/permission/{role_id}',[PermissionController::class,'editPermission'])->name('edit.assigned.permission');
+        Route::post('/update/permission/{role_id}',[PermissionController::class,'updatePermission'])->name('update.assigned.permission');
+    });
+
+    //add user from admin panel
+   Route::group(['prefix'=>'user'],function(){
+        Route::get('/user/list',[UserController::class,'userList'])->name('user.list');
+        Route::get('/add/user',[UserController::class,'adduser'])->name('user.add');
+        Route::post('/user/post',[UserController::class,'userpost'])->name('user.post');
+   }); 
+    
     Route::group(['middleware'=>'checkPermission'],function(){
-        Route::get('/view/product',[ProductController::class,'view'])->name('view.product');
-        Route::get('/create/product',[ProductController::class,'create'])->name('create.product');
+        Route::group(['prefix'=>'product'],function(){
+            Route::get('/view/product',[ProductController::class,'view'])->name('view.product');
+            Route::get('/create/product',[ProductController::class,'create'])->name('create.product');
+        });
+        
     });
 });
