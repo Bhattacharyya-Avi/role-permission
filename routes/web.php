@@ -44,7 +44,7 @@ Route::group(['middleware'=>'auth'],function(){
     
     Route::group(['middleware'=>'checkPermission'],function(){
         Route::group(['prefix'=>'product'],function(){
-            Route::get('/view/product',[ProductController::class,'view'])->name('view.product');
+            Route::get('/view',[ProductController::class,'view'])->name('view.product');
             Route::get('/create/product',[ProductController::class,'create'])->name('create.product');
         });
         
