@@ -22,7 +22,8 @@
                 <td >
                     @foreach ($Permission->assignpermission as $item)
                         <span style="background-color: rgb(233, 240, 253); color:black">
-                            {{$item->permission->name}},
+                            {{str_replace('.',' ', $item->permission->name)}}
+                            ,
                         </span>
                     @endforeach
                 </td>
